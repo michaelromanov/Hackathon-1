@@ -10,6 +10,7 @@ let _schema = new mongoose.Schema({
   user: { type: ObjectId, ref: "user", required: true },
   description: { type: String, required: true },
   difficulty: { type: String, required: true }, //String here??
+  location: { type: String, required: true },
   photo: [_photoSchema]
 }, { timestamps: true })
 
