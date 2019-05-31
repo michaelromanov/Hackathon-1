@@ -4,6 +4,7 @@ export default class Post {
     this.username = data.username
     this.difficulty = data.difficulty
     this.closures = data.closures
+    this.description = data.description
   }
 
   get Template() {
