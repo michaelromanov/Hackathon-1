@@ -10,10 +10,11 @@ server.use(bp.json())
 
 //Register Routes
 import UserController from './controllers/UserController'
+import PostController from './controllers/PostController'
 
 
 server.use('/api/users', new UserController().router)
-
+server.use('/api/posts', new PostController().router)
 
 
 server.use((error, req, res, next) => {

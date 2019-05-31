@@ -8,14 +8,22 @@ export default class UserController {
 
   constructor() {
     this.router = express.Router()
-      .get('/:name', this.getUser)
+      .get('', this.getAllUsers)
+      .get('/:id', this.getUser)
       .post('', this.createUser)
       .use('*', this.defaultRoute)
   }
 
+  async getAllUsers(req, res, next) {
+    try {
+      let users = await _repo.find()
+      return res.send(users)
+    } catch (error) { next(error) }
+  }
+
   async getUser(req, res, next) {
     try {
-      let user = await _repo.findOne({ name: req.params.name })
+      let user = await _repo.findById({ _id: req.params.id })
       return res.send(user)
     } catch (error) { next(error) }
   }

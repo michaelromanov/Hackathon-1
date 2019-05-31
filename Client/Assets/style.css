@@ -1,0 +1,11 @@
+.title-bar {
+  background-color: rgba(1, 1, 1, 0.742);
+}
+.pageTitle {
+  color: antiquewhite;
+}
+.addButton {
+height: 40px;
+width: auto;
+  /* float: right; */
+}
