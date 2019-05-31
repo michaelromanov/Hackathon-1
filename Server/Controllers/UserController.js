@@ -6,6 +6,8 @@ let _repo = _service.repository
 
 export default class UserController {
   constructor() {
-    this.
+    this.router = express.Router()
+      .get('/:id', this.getUserById)
+
   }
 }
