@@ -16,6 +16,7 @@ let _schema = new mongoose.Schema({
   description: { type: String, required: true },
   difficulty: { type: String, required: true },
   directions: { type: String },
+  votes: { type: Number },
   comments: [_commentSchema],
   photos: [_photoSchema]
 }, { timestamps: true })

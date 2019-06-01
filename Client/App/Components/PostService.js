@@ -7,11 +7,11 @@ const postApi = axios.create({
 })
 
 let _state = {
-  trails: []
+  posts: []
 }
 
 let _subscribers = {
-  trails: []
+  posts: []
 }
 
 function _setState(prop, data) {
@@ -34,8 +34,16 @@ export default class PostService {
       .catch(err => _setState('error', err.response.data))
   }
 
-  addPost(todo) {
-    postApi.post('', todo)
+  addPost(post) {
+    postApi.post('', post)
+      .then(res => {
+        this.getPosts()
+      })
+      .catch(err => _setState('error', err.response.data))
+  }
+
+  addComment(post) {
+    postApi.post('', post)
       .then(res => {
         this.getPosts()
       })
@@ -44,6 +52,13 @@ export default class PostService {
 
   removePost(postId) {
     postApi.delete(postId)
+      .then(res => {
+        this.getPosts()
+      })
+  }
+
+  upVote(id) {
+    postApi.put(id + '/up')
       .then(res => {
         this.getPosts()
       })

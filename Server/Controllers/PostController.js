@@ -16,6 +16,7 @@ export default class PostController {
       .get('/user/:name', this.getPostsByUser)
       // .put('/:id/photos', this.photosRoute)
       .put('/:id/comments', this.commentsRoute)
+      .put('/:id/up', this.upVotes)
       .post('', this.createPost)
       .delete('/:id', this.deletePost)
       .use("*", this.defaultRoute)
@@ -57,6 +58,15 @@ export default class PostController {
     } catch (error) {
       next(error)
     }
+  }
+
+  async upVotes(res, req, next) {
+    try {
+      let post = await _repo.findById(req.params.id)
+      post.votes++
+      await post.save()
+      return res.send(post)
+    } catch (error) { next(error) }
   }
 
   async createPost(req, res, next) {

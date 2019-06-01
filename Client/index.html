@@ -37,7 +37,7 @@
               </button>
             </div>
             <div class="modal-body">
-              <form action="" onsubmit="app.controllers.todoController.addPosts(event)">
+              <form action="" onsubmit="app.controllers.postController.addPost(event)">
                 <label for="username" class="col-form-label">Enter Username*</label>
                 <input class="form-control" size="30" type="text" name="username" placeholder="Username" id="username"
                   required>
@@ -55,13 +55,13 @@
 
                 <div class="btn-group btn-group-toggle" data-toggle="buttons">
                   <label class="btn btn-secondary active">
-                    <input type="radio" name="options" id="option1" autocomplete="off" checked> Beginner
+                    <input type="radio" name="beginner" id="option1" autocomplete="off" checked> Beginner
                   </label>
                   <label class="btn btn-secondary">
-                    <input type="radio" name="options" id="option2" autocomplete="off"> Intermediate
+                    <input type="radio" name="intermediate" id="option2" autocomplete="off"> Intermediate
                   </label>
                   <label class="btn btn-secondary">
-                    <input type="radio" name="options" id="option3" autocomplete="off"> Expert
+                    <input type="radio" name="expert" id="option3" autocomplete="off"> Expert
                   </label>
                 </div><br />
 
@@ -72,12 +72,12 @@
                 <p>*Required fields</p>
 
 
-              </form>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
               <button type="submit" class="btn btn-primary" onclick="">Save changes</button>
             </div>
+            </form>
           </div>
         </div>
       </div>
@@ -87,7 +87,7 @@
   <main class="container">
     <div class="row" id="post">
       <div class="row sorter">
-        <div class="dropdown">
+        <div class="dropdown d-flex justify-content-between">
           <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             Sort By
@@ -95,6 +95,17 @@
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <a class="dropdown-item" href="#">Score</a>
             <a class="dropdown-item" href="#">Most Recent</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Difficulty
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="#">Beginner</a>
+            <a class="dropdown-item" href="#">Intermediate</a>
+            <a class="dropdown-item" href="#">Expert</a>
           </div>
         </div>
       </div>
@@ -124,12 +135,13 @@
               NRT.</p>
             <h5>Difficulty Level: Expert</h5>
             <div class="btn-group" role="group" aria-label="Basic example">
-              <button type="button" class="btn btn-secondary" onclick="app.controllers.PostController.upVote()">Up
+              <button type="button" class="btn btn-secondary" onclick="app.controllers.PostController.upVote()"
+                id="plus">Up
                 Vote</button>
               <button type="button" class="btn btn-secondary">Down Vote</button>
             </div>
             <button type="button" class="btn btn-primary">
-              Score <span class="badge badge-light">291</span>
+              Score <span class="badge badge-light" id="voteCount">0</span>
             </button>
             <br /><br />
             <h5 class="d-flex justify-content-between align-items-center">Comments<span><button type="button"
@@ -150,8 +162,8 @@
                     <label for="username" class="col-form-label">Enter Username*</label>
                     <input class="form-control" size="30" type="text" name="username" placeholder="Username"
                       id="username" required>
-                    <label for="description" class="col-form-label">Description*</label>
-                    <textarea name="description" id="description" cols="55" rows="5" placeholder="Enter comments"
+                    <label for="commentDesc" class="col-form-label">Description*</label>
+                    <textarea name="commentDesc" id="commentDesc" cols="55" rows="5" placeholder="Enter comments"
                       required></textarea>
                   </div>
                   <div class="modal-footer">
