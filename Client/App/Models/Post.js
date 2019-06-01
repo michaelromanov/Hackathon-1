@@ -56,6 +56,7 @@ export default class Post {
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
+          <form onsubmit="app.controllers.postController.comment(event, '${this._id}')">
           <div class="modal-body">
             <label for="username" class="col-form-label">Enter Username*</label>
             <input class="form-control" size="30" type="text" name="username" placeholder="Username" id="username" required>
@@ -64,8 +65,9 @@ export default class Post {
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" onclick="app.controllers.postController.upVote('${this._id}')">Save changes</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
           </div>
+          </form>
         </div>
       </div>
       </div>

@@ -24,7 +24,7 @@ export default class PostService {
   get Posts() {
     return _state.posts.map(p => {
       p = new Post(p)
-      p.comments = p.comments.map(c => new Comment(c))
+      p.comments = p.comments.map(c => new Comment(c, p._id))
       return p
     })
   }
@@ -59,8 +59,8 @@ export default class PostService {
       })
   }
 
-  addComment(post) {
-    postApi.put('', post)
+  comment(comment, postId) {
+    postApi.put(postId + '/comments', comment)
       .then(res => {
         this.getPosts()
       })
@@ -74,6 +74,10 @@ export default class PostService {
       .then(res => {
         this.getPosts()
       })
+  }
+
+  sortByScore() {
+
   }
 
   upVote(id) {

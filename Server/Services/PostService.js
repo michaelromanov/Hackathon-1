@@ -3,7 +3,8 @@ let ObjectId = mongoose.Schema.Types.ObjectId
 
 let _commentSchema = new mongoose.Schema({
   user: { type: String, required: true },
-  content: { type: String, required: true }
+  content: { type: String, required: true },
+  // postId: 
 }, { timestamps: true })
 
 let _photoSchema = new mongoose.Schema({

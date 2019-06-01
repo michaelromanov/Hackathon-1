@@ -42,6 +42,7 @@ export default class PostController {
         difficulty = input.name
       }
     }
+
     // #endregion
     let post = {
       description: form.description.value,
@@ -56,14 +57,15 @@ export default class PostController {
     console.log(post)
   }
 
-  addComment(e) {
+  comment(e, postId) {
     e.preventDefault()
+    $(`#post${postId}-modal`).modal('hide')
     let form = e.target
-    let post = {
-      username: form.username.value,
-      commentDesc: form.commentDesc.value,
+    let comment = {
+      user: form.username.value,
+      content: form.commentDesc.value,
     }
-    _postService.addComment(post)
+    _postService.comment(comment, postId)
   }
 
   upVote(id) {
@@ -72,5 +74,13 @@ export default class PostController {
 
   downVote(id) {
     _postService.downVote(id)
+  }
+
+  sortByScore() {
+    _postService.sortByScore()
+  }
+
+  deleteComment(_id, postId) {
+    _postService.comment({ _id }, postId)
   }
 }
