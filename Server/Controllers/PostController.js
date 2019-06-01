@@ -9,14 +9,23 @@ let _userRepo = _userService.repository
 
 
 export default class PostController {
+  async updatePost(req, res, next) {
+    try {
+      let post = await _repo.findByIdAndUpdate(req.params.id, req.body, { new: true })
+      return res.send(post)
+    } catch (error) {
+      next(error)
+    }
+  }
   constructor() {
     this.router = express.Router()
       .get('', this.getAllPosts)
       .get('/:id', this.getPost)
       .get('/user/:name', this.getPostsByUser)
-      // .put('/:id/photos', this.photosRoute)
+      .put('/:id', this.updatePost)
       .put('/:id/comments', this.commentsRoute)
-      .put('/:id/up', this.upVotes)
+      .put('/:id/up', this.upVote)
+      .put('/:id/down', this.downVote)
       .post('', this.createPost)
       .delete('/:id', this.deletePost)
       .use("*", this.defaultRoute)
@@ -24,14 +33,14 @@ export default class PostController {
 
   async getAllPosts(req, res, next) {
     try {
-      let posts = await _repo.find({})
+      let posts = await _repo.find({}).populate('user')
       return res.send(posts)
     } catch (error) { next(error) }
   }
 
   async getPost(req, res, next) {
     try {
-      let post = await _repo.findById(req.params.id)
+      let post = await _repo.findById(req.params.id).populate('user')
       return res.send(post)
     } catch (error) { next(error) }
   }
@@ -60,10 +69,19 @@ export default class PostController {
     }
   }
 
-  async upVotes(res, req, next) {
+  async upVote(req, res, next) {
     try {
       let post = await _repo.findById(req.params.id)
       post.votes++
+      await post.save()
+      return res.send(post)
+    } catch (error) { next(error) }
+  }
+
+  async downVote(req, res, next) {
+    try {
+      let post = await _repo.findById(req.params.id)
+      post.votes--
       await post.save()
       return res.send(post)
     } catch (error) { next(error) }

@@ -11,12 +11,12 @@ let _photoSchema = new mongoose.Schema({
 })
 
 let _schema = new mongoose.Schema({
-  name: { type: String, required: true, unique: true },
+  name: { type: String, required: true },
   user: { type: ObjectId, ref: "user", required: true },
   description: { type: String, required: true },
   difficulty: { type: String, required: true },
   directions: { type: String },
-  votes: { type: Number },
+  votes: { type: Number, default: 0 },
   comments: [_commentSchema],
   photos: [_photoSchema]
 }, { timestamps: true })

@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 
 let _schema = new mongoose.Schema({
-  name: { type: String, required: true, unique: true },
+  name: { type: String, required: true },
 }, { timestamps: true })
 
 export default class UserService {

@@ -1,6 +1,6 @@
 import mongoose from "mongoose"
 
-const connectionString = "mongodb+srv://DBuser:DBuser123@cluster0-uwikr.mongodb.net/hackathon?retryWrites=true&w=majority"
+const connectionString = "mongodb+srv://student:student123@cluster0-r30vx.mongodb.net/hackathon?retryWrites=true&w=majority"
 
 function _serverError(err) {
   console.error(err)

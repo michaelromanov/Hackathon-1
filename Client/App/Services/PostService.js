@@ -1,8 +1,8 @@
 import Post from "../Models/Post.js";
-
+import Comment from "../Models/Comment.js"
 
 const postApi = axios.create({
-  baseURL: '//localhost:3000/api/posts',
+  baseURL: '//192.168.2.109:3000/api/posts',
   timeout: 3000
 })
 
@@ -22,8 +22,16 @@ function _setState(prop, data) {
 export default class PostService {
 
   get Posts() {
-    return _state.posts.map(p => new Post(p))
+    return _state.posts.map(p => {
+      p = new Post(p)
+      p.comments = p.comments.map(c => new Comment(c))
+      return p
+    })
   }
+
+  // get Comments() {
+  //   return Comment.template
+  // }
 
   addSubscriber(prop, fn) {
     _subscribers[prop].push(fn)
@@ -32,6 +40,7 @@ export default class PostService {
   getPosts() {
     postApi.get()
       .then(res => {
+        console.log(res.data)
         let data = res.data.map(t => new Post(t))
         _setState('posts', data)
       })
@@ -51,7 +60,7 @@ export default class PostService {
   }
 
   addComment(post) {
-    postApi.post('', post)
+    postApi.put('', post)
       .then(res => {
         this.getPosts()
       })
