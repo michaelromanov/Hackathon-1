@@ -1,41 +1,25 @@
-import PostService from "./PostService.js";
+import PostService from "../Services/PostService.js";
 //PRIVATE
-
 
 
 const _postService = new PostService()
 
 function _drawPosts() {
   console.log("drawPosts Working")
-  let posts = _postService //Posts????
-
+  let posts = _postService.Posts
   let template = ''
-
+  for (let i = 0; i < posts.length; i++) {
+    let post = posts[i]
+    template += post.Template
+  }
+  document.getElementById("newPost").innerHTML = template
 }
-
-let totalVoteCount = 0
-
-function upVote(id) {
-  _postService.upVote(id)
-
-}
-  // document.getElementById('voteCount').innerHTML += totalVoteCount
-}
-
-
-function downVote() {
-  document.getElementById('voteCount').innerHTML = totalVoteCount - 1
-}
-//upvote button adds 1 to the total count
-//downvote button subtracts 1 from total count
-//count total determines placement on page
-
-
 
 //PUBLIC
 export default class PostController {
   constructor() {
     _postService.addSubscriber('posts', _drawPosts)
+    _postService.getPosts()
   }
 
   addPost(e) {
@@ -69,6 +53,14 @@ export default class PostController {
       username: form.username.value,
       commentDesc: form.commentDesc.value,
     }
-    _postService.add
+    _postService.addComment(post)
+  }
+
+  upVote(id) {
+    _postService.upVote(id)
+  }
+
+  downVote(id) {
+    _postService.downVote(id)
   }
 }

@@ -2,7 +2,7 @@ import Post from "../Models/Post.js";
 
 
 const postApi = axios.create({
-  baseURL: 'localhost:3000/api/trails',
+  baseURL: '//localhost:3000/api/posts',
   timeout: 3000
 })
 
@@ -21,6 +21,10 @@ function _setState(prop, data) {
 
 export default class PostService {
 
+  get Posts() {
+    return _state.posts.map(p => new Post(p))
+  }
+
   addSubscriber(prop, fn) {
     _subscribers[prop].push(fn)
   }
@@ -28,10 +32,12 @@ export default class PostService {
   getPosts() {
     postApi.get()
       .then(res => {
-        let data = res.data.data.map(t => new Post(t))
+        let data = res.data.map(t => new Post(t))
         _setState('posts', data)
       })
-      .catch(err => _setState('error', err.response.data))
+      .catch(err => {
+        console.error(err)
+      })
   }
 
   addPost(post) {
@@ -39,7 +45,9 @@ export default class PostService {
       .then(res => {
         this.getPosts()
       })
-      .catch(err => _setState('error', err.response.data))
+      .catch(err => {
+        console.error(err)
+      })
   }
 
   addComment(post) {
@@ -47,7 +55,9 @@ export default class PostService {
       .then(res => {
         this.getPosts()
       })
-      .catch(err => _setState('error', err.response.data))
+      .catch(err => {
+        console.error(err)
+      })
   }
 
   removePost(postId) {
@@ -59,6 +69,13 @@ export default class PostService {
 
   upVote(id) {
     postApi.put(id + '/up')
+      .then(res => {
+        this.getPosts()
+      })
+  }
+
+  downVote(id) {
+    postApi.put(id + '/down')
       .then(res => {
         this.getPosts()
       })
