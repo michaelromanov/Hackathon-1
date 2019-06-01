@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/Schopke/Hackathon-1#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "esm": "^3.2.25",
     "express": "^4.17.1",
     "mongoose": "^5.5.12"

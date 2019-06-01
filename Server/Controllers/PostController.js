@@ -1,5 +1,5 @@
 import express from 'express'
-import PostService from '../services/PostService'
+import PostService from '../Services/PostService'
 import UserService from '../Services/UserService';
 
 let _service = new PostService()
