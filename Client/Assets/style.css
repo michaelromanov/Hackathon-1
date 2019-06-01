@@ -1,11 +1,23 @@
 .title-bar {
-  background-color: rgba(1, 1, 1, 0.742);
+  background-color: rgba(10, 72, 0, 0.803);
 }
 .pageTitle {
   color: antiquewhite;
 }
+.postTitle {
+  background-color: rgba(10, 72, 0, 0.5);
+  padding: 10px;
+}
 .addButton {
 height: 40px;
 width: auto;
-  /* float: right; */
+}
+.comment {
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  border-radius: 10px;
+}
+img {
+  max-width: 100%;
+  height: auto;
 }
